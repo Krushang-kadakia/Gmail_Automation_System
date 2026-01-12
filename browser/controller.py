@@ -1,13 +1,19 @@
 from playwright.async_api import async_playwright
 
-async def open_browser():
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-        page = await browser.new_page()
+class BrowserController:
+    def __init__(self):
+        self.browser = None
+        self.page = None
 
-        await page.goto("https://example.com")
-        title = await page.title()
-        print("Page title:", title)
+    async def open(self, url: str):
+        p = await async_playwright().start()
+        self.browser = await p.chromium.launch(headless=False)
+        self.page = await self.browser.new_page()
 
-        await page.wait_for_timeout(3000)
-        await browser.close()
+        await self.page.goto(url)
+        title = await self.page.title()
+
+        return {
+            "url": url,
+            "title": title
+        }
