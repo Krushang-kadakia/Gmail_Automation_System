@@ -29,3 +29,34 @@ class BrowserController:
             "title": await self.page.title(),
             "dom_snippet": dom[:1000]  # truncate on purpose
         }
+    async def click(self, selector: str):
+        if not self.page:
+            return {"error": "Browser not started"}
+
+        await self.page.click(selector)
+        return {"status": "clicked", "selector": selector}
+
+    async def type_text(self, selector: str, text: str):
+        if not self.page:
+            return {"error": "Browser not started"}
+
+        await self.page.fill(selector, text)
+        return {
+            "status": "typed",
+            "selector": selector,
+            "text": text
+        }
+
+    async def wait(self, milliseconds: int):
+        if not self.page:
+            return {"error": "Browser not started"}
+
+        await self.page.wait_for_timeout(milliseconds)
+        return {"status": "waited", "ms": milliseconds}
+
+    async def scroll(self, pixels: int = 500):
+        if not self.page:
+            return {"error": "Browser not started"}
+
+        await self.page.mouse.wheel(0, pixels)
+        return {"status": "scrolled", "pixels": pixels}

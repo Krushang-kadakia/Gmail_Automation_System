@@ -39,3 +39,60 @@ with col2:
             )
         st.info("Browser state observed")
         st.json(state)
+
+st.divider()
+st.subheader("Manual Actions")
+
+action = st.selectbox(
+    "Choose action",
+    ["Click", "Type", "Wait", "Scroll"]
+)
+
+selector = st.text_input(
+    "CSS Selector (for Click / Type)",
+    placeholder="e.g. a, button#submit, input[name='q']"
+)
+
+text = st.text_input(
+    "Text (for Type action)",
+    placeholder="Text to type"
+)
+
+wait_ms = st.number_input(
+    "Wait time (milliseconds)",
+    min_value=100,
+    value=1000,
+    step=500
+)
+
+scroll_px = st.number_input(
+    "Scroll pixels",
+    min_value=100,
+    value=500,
+    step=100
+)
+
+if st.button("Execute Action"):
+    with st.spinner("Executing action..."):
+        if action == "Click":
+            result = st.session_state.runner.run(
+                st.session_state.browser.click(selector)
+            )
+
+        elif action == "Type":
+            result = st.session_state.runner.run(
+                st.session_state.browser.type_text(selector, text)
+            )
+
+        elif action == "Wait":
+            result = st.session_state.runner.run(
+                st.session_state.browser.wait(wait_ms)
+            )
+
+        elif action == "Scroll":
+            result = st.session_state.runner.run(
+                st.session_state.browser.scroll(scroll_px)
+            )
+
+    st.success("Action executed")
+    st.json(result)
