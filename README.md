@@ -47,25 +47,25 @@ LLM-based planning will be added in Phase 2.
 
 ## 📁 Project Structure
 
-browser-automation-agent/
-│
-├── browser/
-│ ├── controller.py # Browser actions & observation
-│ └── init.py
-│
-├── ui/
-│ ├── app.py # Streamlit UI
-│ └── init.py
-│
-├── utils/
-│ └── async_runner.py # Background async event loop
-│
-├── data/ # Generated outputs (gitignored)
-├── venv/ # Virtual environment (gitignored)
-│
-├── main.py
-├── requirements.txt
-└── README.md
+browser-automation-agent/  
+│  
+├── browser/  
+│ ├── controller.py # Browser actions & observation  
+│ └── init.py  
+│  
+├── ui/  
+│ ├── app.py # Streamlit UI  
+│ └── init.py  
+│  
+├── utils/  
+│ └── async_runner.py # Background async event loop  
+│  
+├── data/ # Generated outputs (gitignored)  
+├── venv/ # Virtual environment (gitignored)  
+│  
+├── main.py  
+├── requirements.txt  
+└── README.md  
 
 ---
 
